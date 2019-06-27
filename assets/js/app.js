@@ -29,7 +29,7 @@ let x = 100,
   segLength = 50;
 
 p.setup = function() {
-  p.createCanvas(710, 400);
+  p.createCanvas(window.innerWidth, window.innerHeight);
   p.strokeWeight(20.0);
   p.stroke(255, 100);
 }
@@ -38,14 +38,16 @@ p.draw = function() {
 
   p.background(0);
 
-  let dx = p.mouseX - x;
-  let dy = p.mouseY - y;
-  angle1 = p.atan2(dy, dx);
-  x = p.mouseX - p.cos(angle1) * segLength;
-  y = p.mouseY - p.sin(angle1) * segLength;
+  // let dx = p.mouseX - x;
+  // let dy = p.mouseY - y;
+  // angle1 = p.atan2(dy, dx);
+  // x = p.mouseX - p.cos(angle1) * segLength;
+  // y = p.mouseY - p.sin(angle1) * segLength;
+  x = p.mouseX;
+  y = p.mouseY;
 
-  p.segment(x, y, angle1);
-  p.ellipse(x, y, 20, 20);
+  // p.segment(x, y, angle1);
+  p.ellipse(x, y, 100, 100);
 }
 
 p.segment =  function(x, y, a) {
