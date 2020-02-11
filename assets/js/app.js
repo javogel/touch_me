@@ -14,10 +14,7 @@ import "phoenix_html"
 // Import local files
 //
 // Local files can be imported directly using relative paths, for example:
-// import socket from "./socket"
-
-
-
+ import socket from "./socket"
 
 
 let sketch = function(p) {
@@ -55,9 +52,23 @@ p.segment =  function(x, y, a) {
   p.translate(x, y);
   p.rotate(a);
   p.line(0, 0, segLength, 0);
-  p.pop();
 }
-
 
 }
 new p5(sketch);
+
+var channel = socket.channel('page:canvas', {});
+
+channel.join()
+
+channel.on('other_position', (payload) => {
+  console.log(payload)
+})
+
+var wholeBody = document.getElementsByTagName('body')[0];
+
+wholeBody.addEventListener('mousemove', (event) => {
+  channel.push('other_position', {x: event.x, y: event.y})
+})
+
+

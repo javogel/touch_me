@@ -1,0 +1,27 @@
+networks:
+  internal:
+services:
+  db:
+    environment:
+      POSTGRES_DB:
+      POSTGRES_PASSWORD:
+      POSTGRES_USER:
+    image: postgres:11
+    networks:
+      - internal
+    ports:
+      - '5432:5432'
+    restart: unless-stopped
+  web:
+    build: .
+    command: ./bin/touch_me start
+    env_file:
+      - ./environment.env
+    depends_on:
+      - db
+    networks:
+      - internal
+    ports:
+      - '4000:4000'
+    restart: unless-stopped
+version: '3'
